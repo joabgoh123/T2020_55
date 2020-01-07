@@ -278,7 +278,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Hello, Brian</h1>
+            <h1 class="h3 mb-0 text-gray-800">Hello, <span id="customerName"></span></h1><h1 id="customerName"></h1>
           </div>
 
           <!-- Content Row -->
@@ -383,17 +383,30 @@
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    let header = {
+          identity: "T13",
+          token: "44d7fd0b-c154-40b2-b8bc-890f9eca6f67"
+    }
     $(document).ready(function(){
-      $.get("http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/limzeyang", {
-        headers:{
-          "identity": "T13",
-          "token": "44d7fd0b-c154-40b2-b8bc-890f9eca6f67"
-        }
-      }).then(function(response){
-        console.log(response);
-      })
+      $.ajax({
+        type: "GET",
+        url: "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/limzeyang",
+        headers: header
+      }).then(function(data){
+        let customerId = data.customerId;
+        $.ajax({type:"GET",
+        url:"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/"+customerId + "/details",
+        headers: header}).then(function(data){
+          $("#customerName").text(data.firstName);
+        })
+
+        $.ajax({type:"GET",
+        url:"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/"+customerId,
+        headers: header}).then(function(data){
+          console.log(data);
+        })
+      });
     })
   </script>
 
