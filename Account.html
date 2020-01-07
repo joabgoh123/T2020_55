@@ -316,14 +316,12 @@
               </div>
             </div> -->
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
                 </div>
-                <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4">
                     <canvas id="myPieChart"></canvas>
@@ -333,6 +331,14 @@
                 </div>
                 </div>
               </div>
+            </div> -->
+            <div class="row">
+              <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <span id="text"></span>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
@@ -388,13 +394,17 @@
           identity: "T13",
           token: "44d7fd0b-c154-40b2-b8bc-890f9eca6f67"
     }
+
+    let customerId;
+    let accountId;
+
     $(document).ready(function(){
       $.ajax({
         type: "GET",
         url: "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/limzeyang",
         headers: header
       }).then(function(data){
-        let customerId = data.customerId;
+        customerId = data.customerId;
         $.ajax({type:"GET",
         url:"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/"+customerId + "/details",
         headers: header}).then(function(data){
@@ -404,8 +414,40 @@
         $.ajax({type:"GET",
         url:"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/"+customerId,
         headers: header}).then(function(data){
-          console.log(data);
+          accountId = data[0].accountId;
+        }).then(function(){
+          $.ajax({type:"GET",
+        url:"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/"+accountId+"?from=01-01-2018&to=02-01-2018",
+        headers: header}).then(function(data){
+            let itemAmount = {};
+
+            data.map(item=>{
+              if(item.tag in itemAmount){
+                if(item.type == "DEBIT"){
+                  itemAmount[item.tag] = itemAmount[item.tag] - parseFloat(item.amount);
+                } else {
+                  itemAmount[item.tag] = itemAmount[item.tag] + parseFloat(item.amount);
+                }
+              } else {
+                if(item.type == "DEBIT"){
+                  itemAmount[item.tag] = 0 - parseFloat(item.amount);
+                } else {
+                  itemAmount[item.tag] = parseFloat(item.amount);
+                }
+              }
+            })
+            
+            let total  = 0;
+            for(var property in itemAmount){
+              total = total + itemAmount[property];
+              $("#text").append("<div>" + property + " : " + itemAmount[property].toFixed(2) + "</div>");
+            }
+            $("#text").append("<div>Total : " + total.toFixed(2) + "</div>");
+            // console.log(data);
+            // console.log(itemAmount);
+          })
         })
+
       });
     })
   </script>
