@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+
+<!-- Importing CSS -->
+<link type="text/css" href="design.css" rel="stylesheet" />
+
+<!-- Importing Javascript -->
+<script type="text/javascript" src="script.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+
+<!-- Importing Vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+<!-- Using Vue Script-->
+<script src="vueComponents.js" type="module"></script>
+
+<!-- Importing Axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+</head>
+<body>
+	
+	<!-- 
+	<table>
+	<tr>
+	<td><input type="radio" name="listUser" value="getuser" id='listRadio'> Get user details</td>
+	<td><input type="radio" name="listTransaction" value="gettransaction" id='transactionRadio'> Get transaction details</td>
+	</tr>
+	<tr>
+		<td>Account ID: </td><td><input type="text" name="accountID" id='accountID'></td>
+	</tr>
+	<tr>
+	<td>From Date: </td><td><input type="date" name="fromDate" id='fromDate'> </td>
+	</tr>
+	<tr>
+	<td>To Date: </td><td><input type="date" name="toDate" id='toDate'></td>
+	</tr>
+		<tr colspan='2' align='right'>
+	<td><button type="button" onclick="generate()">Search</button></td>
+	</tr>
+	</table>
+	 -->
+	<a href="/listAll"><button>View All User Details</button></a><br><br><br>
+	<a href="/listOne?id=1"><button>View Single User Detail</button></a> <br><br><br>
+	<a href="/listAllTransaction?id=79&fromDate=01-01-2018&toDate=01-30-2020"><button>View All Transactions</button></a>
+</body>
+</html>
+
+<script>
+
+function generate() {
+	  if(document.getElementById("transactionRadio").innerHTML != null) {
+		  var transactionRadio = document.getElementById("transactionRadio").val(); 
+	  }
+	  
+	  if(document.getElementById("listRadio").innerHTML != null) {
+		  var listRadio = document.getElementById("listRadio").innerHTML; 
+	  }
+	  var accountId = document.getElementById("accountID").innerHTML;
+	  var fromDate = document.getElementById("fromDate").innerHTML;
+	  var toDate = document.getElementById("toDate").innerHTML;
+
+	  alert(transactionRadio);
+	}
+</script>
