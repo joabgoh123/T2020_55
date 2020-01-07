@@ -33,6 +33,13 @@ public class HelloController {
 	 * users = userService.getAllUsers(); return users; }
 	 * 
 	 */
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView frontPage(ModelMap model) {
+		ModelAndView modelView = new ModelAndView("index");
+		return modelView;
+	}
+	
 	@RequestMapping(value = "/listOne", method = RequestMethod.GET)
 	public ModelAndView listOne(ModelMap model, @RequestParam String id) {
 		ModelAndView modelView = new ModelAndView("listOne");
@@ -78,6 +85,9 @@ public class HelloController {
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return obj;
 	}
@@ -105,6 +115,9 @@ public class HelloController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
