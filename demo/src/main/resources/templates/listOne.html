@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+
+<!-- Importing CSS -->
+<link type="text/css" href="design.css" rel="stylesheet" />
+
+<!-- Importing Javascript -->
+<script type="text/javascript" src="script.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+<!-- Importing Vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+<!-- Using Vue Script-->
+<script src="vueComponents.js" type="module"></script>
+
+<!-- Importing Axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+</head>
+<body>
+	<div id="app_component">
+		<todo_list v-bind:todo_list_prop="todoList" />
+	</div>
+
+	<div id="app">
+		<table class="table" id="myTable">
+			<thead>
+			<tr>
+				<th>customer ID</th>
+				<th>gender</th>
+				<th>First Name</th>
+				<th>LastName</th>
+				<th>Last Log In</th>
+				<th>date Of Birth</th>
+				<th>risk Level</th>
+			</tr>
+			</thead>
+			<!-- <tr  v-for="user in all"> -->
+			<tbody>
+			<tr>
+				<td>
+					{{all.customerId}}
+				</td>
+				<td>
+					{{all.gender}}
+				</td>
+				<td>
+					{{all.firstName}}
+				</td>
+				<td>
+					{{all.lastName}}
+				</td>
+				<td>
+					{{all.lastLogIn}}
+				</td>
+				
+				<td>
+					{{all.dateOfBirth}}
+				</td>
+				<td>
+					{{all.riskLevel}}
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
+
+<script>
+
+$(document).ready( function () {
+
+	$('#myTable').DataTable();
+   
+} );
+</script>
